@@ -5,9 +5,8 @@ import com.banco.bancoapi.domain.exception.InsufficientBalanceException;
 import java.util.Objects;
 
 /**
- * Conta de banco. Entidade de negocio em Java puro — sem JPA/Spring.
- * As regras de debito/credito vivem aqui; a persistencia e a concorrencia
- * (lock pessimista) sao responsabilidade da infraestrutura.
+ * Conta do banco. Dominio puro, sem JPA nem Spring.
+ * As regras de debito/credito ficam aqui; persistencia e lock sao da infra.
  */
 public class Account {
 
@@ -22,8 +21,8 @@ public class Account {
     }
 
     /**
-     * Debita o valor. Valida saldo suficiente ANTES de alterar — o saldo nunca fica negativo.
-     * A garantia sob concorrencia depende de a conta ter sido carregada sob lock pessimista.
+     * Debita o valor. Confere o saldo antes de mexer, entao nunca fica negativo.
+     * Sob concorrencia isso so vale se a conta tiver sido carregada com lock.
      */
     public void debit(Money amount) {
         requirePositive(amount);

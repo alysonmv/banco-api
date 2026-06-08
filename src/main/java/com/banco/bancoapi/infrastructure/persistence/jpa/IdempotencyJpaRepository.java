@@ -9,9 +9,9 @@ import org.springframework.data.repository.query.Param;
 public interface IdempotencyJpaRepository extends JpaRepository<IdempotencyEntity, String> {
 
     /**
-     * Insere o claim de forma atomica. {@code ON CONFLICT DO NOTHING} faz o INSERT virar no-op
-     * (retorna 0) quando a chave ja existe; sob concorrencia, bloqueia em linha nao-commitada
-     * ate o outro request commitar. flush antes / clear depois mantem a consistencia do contexto.
+     * Insere o claim de forma atomica. O ON CONFLICT DO NOTHING faz o INSERT nao fazer nada
+     * (retorna 0) quando a chave ja existe; sob concorrencia, espera a linha nao commitada do
+     * outro request. flush antes e clear depois pra manter o contexto certo.
      */
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Query(value = """

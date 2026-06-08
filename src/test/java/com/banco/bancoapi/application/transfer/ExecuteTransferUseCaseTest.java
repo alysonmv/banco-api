@@ -83,7 +83,7 @@ class ExecuteTransferUseCaseTest {
 
     @Test
     void locksAdquiridosSempreNaOrdemDoIdMenorPrimeiro() {
-        // Transferencia de 2 -> 1: mesmo assim os locks devem ser pedidos na ordem 1, depois 2.
+        // de 2 -> 1, mas os locks ainda devem sair na ordem 1 e depois 2
         Account a1 = new Account(1L, "Alice", Money.of("100.00"));
         Account a2 = new Account(2L, "Bob", Money.of("100.00"));
         when(accountRepository.findByIdForUpdate(1L)).thenReturn(Optional.of(a1));

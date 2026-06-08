@@ -8,7 +8,7 @@ import com.banco.bancoapi.domain.port.MovementRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/** Consulta paginada do historico de movimentacoes de uma conta (le do ledger). */
+/** Historico paginado de uma conta (le do ledger). */
 @Service
 public class GetMovementsUseCase {
 

@@ -25,7 +25,7 @@ import java.util.concurrent.Future;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-/** Idempotencia: a mesma Idempotency-Key nao reexecuta nem duplica a transferencia. */
+/** Idempotencia: a mesma Idempotency-Key nao roda de novo nem duplica a transferencia. */
 class IdempotencyIT extends AbstractIntegrationTest {
 
     @Autowired

@@ -2,7 +2,7 @@ package com.banco.bancoapi.domain.model;
 
 import java.util.List;
 
-/** Resultado paginado em Java puro — evita acoplar o dominio ao Spring Data. */
+/** Paginacao em Java puro, pra nao amarrar o dominio no Spring Data. */
 public record PagedResult<T>(
         List<T> content,
         int page,

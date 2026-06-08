@@ -5,9 +5,8 @@ import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
- * Value object de dinheiro. Sempre {@link BigDecimal} com escala fixa de 2 casas e
- * {@link RoundingMode#HALF_EVEN} explicito. Nunca double/float — evita erro de arredondamento
- * que, em dinheiro, vira saldo errado.
+ * Dinheiro como value object. Sempre BigDecimal com 2 casas e HALF_EVEN.
+ * Nada de double/float aqui: arredondamento em dinheiro vira saldo errado.
  */
 public final class Money implements Comparable<Money> {
 

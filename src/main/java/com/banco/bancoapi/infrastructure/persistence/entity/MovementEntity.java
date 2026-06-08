@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.Instant;
 
-/** Linha imutavel do ledger. Sem setters de negocio: uma vez gravada, nao muda. */
+/** Linha do ledger, imutavel. Sem setter de negocio: gravou, nao muda mais. */
 @Entity
 @Table(name = "movements")
 public class MovementEntity {

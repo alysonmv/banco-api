@@ -21,9 +21,9 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Ausencia de deadlock: transferencias A->B e B->A em paralelo, repetidas vezes. Como os locks
- * sao sempre adquiridos na mesma ordem (id menor primeiro), nao ha espera circular. O teste
- * deve completar dentro do timeout e os saldos finais ficam corretos.
+ * Deadlock: A->B e B->A em paralelo, varias vezes. Como os locks saem sempre na mesma ordem
+ * (id menor primeiro), nao tem espera circular. Tem que terminar dentro do timeout e os saldos
+ * finais batem.
  */
 class DeadlockIT extends AbstractIntegrationTest {
 
@@ -69,7 +69,7 @@ class DeadlockIT extends AbstractIntegrationTest {
         boolean finished = pool.awaitTermination(60, TimeUnit.SECONDS);
 
         assertThat(finished).isTrue();
-        // Mesmo numero de transferencias em cada direcao -> saldos voltam ao inicial.
+        // mesma quantidade nos dois sentidos -> saldo volta ao inicial
         assertThat(accountUseCase.getById(a.id()).balance().value()).isEqualByComparingTo("10000.00");
         assertThat(accountUseCase.getById(b.id()).balance().value()).isEqualByComparingTo("10000.00");
     }

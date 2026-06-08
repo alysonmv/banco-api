@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
-/** Casos de uso de contas: cadastro basico e consulta. */
+/** Contas: criar e consultar. */
 @Service
 public class AccountUseCase {
 

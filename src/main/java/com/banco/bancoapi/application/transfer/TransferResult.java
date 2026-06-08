@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 /**
- * Resultado do caso de uso de transferencia. E o que o controller serializa para o cliente
- * e tambem o que e persistido (em JSON) no registro de idempotencia, para replay fiel.
+ * Resultado da transferencia. E o que o controller devolve pro cliente e tambem o que fica
+ * salvo (em JSON) na idempotencia, pra conseguir repetir a mesma resposta.
  */
 public record TransferResult(
         Long movementId,

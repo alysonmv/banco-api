@@ -8,9 +8,9 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 /**
- * Adapter do port {@link TransferEventPublisher}. Publica um evento Spring DENTRO da transacao;
- * a entrega real na fila acontece somente APOS o commit (ver {@link RabbitTransferPublisher}).
- * Captura o correlationId do MDC aqui (ainda na thread da requisicao) para propaga-lo adiante.
+ * Implementa o TransferEventPublisher. Publica um evento do Spring dentro da transacao; a
+ * fila so recebe de fato depois do commit (ver RabbitTransferPublisher).
+ * Pego o correlationId do MDC aqui, ainda na thread da request, pra repassar adiante.
  */
 @Component
 public class SpringTransferEventPublisher implements TransferEventPublisher {

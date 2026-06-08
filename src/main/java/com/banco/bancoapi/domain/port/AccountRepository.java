@@ -4,18 +4,18 @@ import com.banco.bancoapi.domain.model.Account;
 
 import java.util.Optional;
 
-/** Port de persistencia de contas. A implementacao vive na infraestrutura. */
+/** Persistencia de contas. A implementacao fica na infra. */
 public interface AccountRepository {
 
     Optional<Account> findById(Long id);
 
     /**
-     * Carrega a conta sob lock pessimista de escrita (SELECT ... FOR UPDATE).
-     * Deve ser chamado dentro de uma transacao. E a base da correcao sob concorrencia:
-     * nenhuma outra transacao le/escreve a mesma conta enquanto este lock estiver ativo.
+     * Carrega a conta com lock de escrita (SELECT ... FOR UPDATE). Tem que rodar dentro de
+     * uma transacao. E o que segura a concorrencia: ninguem mexe na conta enquanto o lock
+     * estiver de pe.
      */
     Optional<Account> findByIdForUpdate(Long id);
 
-    /** Cria uma nova conta ou persiste alteracoes de saldo de uma existente. */
+    /** Cria uma conta nova ou salva o saldo de uma que ja existe. */
     Account save(Account account);
 }

@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface MovementJpaRepository extends JpaRepository<MovementEntity, Long> {
 
-    /** Movimentacoes em que a conta aparece como origem OU destino. */
+    /** Movimentacoes onde a conta aparece como origem ou destino. */
     @Query("""
             select m from MovementEntity m
             where m.fromAccountId = :accountId or m.toAccountId = :accountId

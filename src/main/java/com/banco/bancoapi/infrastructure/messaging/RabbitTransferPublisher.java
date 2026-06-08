@@ -9,12 +9,12 @@ import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 /**
- * Publica a notificacao na fila SOMENTE apos o commit da transferencia
- * ({@link TransactionPhase#AFTER_COMMIT}). Nunca dentro da transacao de debito/credito.
+ * Publica a notificacao na fila so depois do commit da transferencia (AFTER_COMMIT), nunca
+ * dentro da transacao de debito/credito.
  *
- * <p><b>Prioridade explicita:</b> a notificacao e NAO-CRITICA. Se a publicacao falhar, a
- * transferencia JA foi concluida e NAO deve ser revertida — apenas registramos o erro em log.
- * (Limitacao conhecida sem outbox: ha uma janela em que a notificacao pode ser perdida.)
+ * A notificacao nao e critica: se a publicacao falhar, a transferencia ja foi feita e nao
+ * deve ser desfeita, so registramos o erro. Sem outbox tem uma janela em que a notificacao
+ * pode se perder.
  */
 @Component
 public class RabbitTransferPublisher {
@@ -44,7 +44,7 @@ public class RabbitTransferPublisher {
             });
             log.info("Notificacao de transferencia publicada (movementId={})", event.movementId());
         } catch (Exception e) {
-            // NAO-CRITICO: a transferencia ja foi concluida e commitada. So logamos.
+            // nao e critico: a transferencia ja foi commitada, so logamos
             log.error("Falha ao publicar notificacao da transferencia movementId={} (nao-critico, "
                     + "transferencia mantida)", event.movementId(), e);
         }

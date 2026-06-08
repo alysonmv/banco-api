@@ -35,8 +35,8 @@ public class AccountRepositoryAdapter implements AccountRepository {
             AccountEntity entity = new AccountEntity(null, account.name(), account.balance().value());
             return AccountMapper.toDomain(jpa.save(entity));
         }
-        // Conta existente: a entidade ja esta gerenciada no contexto (carregada sob lock).
-        // Atualizamos apenas o saldo; createdAt e demais campos sao preservados.
+        // conta ja existe: a entidade ta gerenciada no contexto (foi carregada com lock).
+        // mexo so no saldo; createdAt e o resto ficam como estao.
         AccountEntity entity = jpa.findById(account.id())
                 .orElseThrow(() -> new AccountNotFoundException(account.id()));
         entity.setBalance(account.balance().value());

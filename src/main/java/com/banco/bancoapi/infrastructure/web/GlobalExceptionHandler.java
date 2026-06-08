@@ -24,7 +24,7 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 import java.time.Instant;
 import java.util.List;
 
-/** Handler global: corpo de erro consistente (timestamp, status, code, message, correlationId). */
+/** Handler global de erros: corpo sempre no mesmo formato (timestamp, status, code, message, correlationId). */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -63,27 +63,27 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.BAD_REQUEST, "MALFORMED_REQUEST", "Corpo da requisicao invalido", null);
     }
 
-    /** Caminho inexistente / recurso estatico ausente -> 404 (e nao 500). */
+    /** Rota que nao existe -> 404 em vez de 500. */
     @ExceptionHandler(NoResourceFoundException.class)
     public ResponseEntity<ErrorResponse> handleNoResource(NoResourceFoundException ex) {
         return build(HttpStatus.NOT_FOUND, "NOT_FOUND", "Recurso nao encontrado", null);
     }
 
-    /** Metodo HTTP errado para a rota (ex.: GET em /transfers, que so aceita POST) -> 405. */
+    /** Metodo errado pra rota (ex.: GET em /transfers, que so aceita POST) -> 405. */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ErrorResponse> handleMethodNotAllowed(HttpRequestMethodNotSupportedException ex) {
         return build(HttpStatus.METHOD_NOT_ALLOWED, "METHOD_NOT_ALLOWED",
                 "Metodo HTTP '" + ex.getMethod() + "' nao suportado para este recurso", null);
     }
 
-    /** Content-Type nao suportado -> 415. */
+    /** Content-Type que nao da pra ler -> 415. */
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public ResponseEntity<ErrorResponse> handleMediaType(HttpMediaTypeNotSupportedException ex) {
         return build(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "UNSUPPORTED_MEDIA_TYPE",
                 "Content-Type nao suportado", null);
     }
 
-    /** Parametro obrigatorio ausente ou com tipo invalido -> 400. */
+    /** Parametro faltando ou com tipo errado -> 400. */
     @ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class})
     public ResponseEntity<ErrorResponse> handleBadParam(Exception ex) {
         return build(HttpStatus.BAD_REQUEST, "INVALID_REQUEST", ex.getMessage(), null);

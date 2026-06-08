@@ -10,9 +10,9 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 /**
- * Consumer da fila de notificacoes. Simula o envio da notificacao com um log estruturado.
- * Restaura o correlationId no MDC a partir do header da mensagem — o MDC nao se propaga
- * automaticamente para a thread do consumer.
+ * Consumer da fila de notificacoes. Aqui so simulo o envio com um log.
+ * Recupero o correlationId do header da mensagem porque o MDC nao vem junto pra thread do
+ * consumer.
  */
 @Component
 public class TransferNotificationConsumer {

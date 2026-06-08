@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface AccountJpaRepository extends JpaRepository<AccountEntity, Long> {
 
-    /** SELECT ... FOR UPDATE: lock pessimista de escrita usado pela transferencia. */
+    /** SELECT ... FOR UPDATE: o lock de escrita que a transferencia usa. */
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select a from AccountEntity a where a.id = :id")
     Optional<AccountEntity> findByIdForUpdate(@Param("id") Long id);

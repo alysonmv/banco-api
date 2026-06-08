@@ -7,9 +7,9 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.RabbitMQContainer;
 
 /**
- * Base das integracoes: sobe Postgres e RabbitMQ reais via Testcontainers (sem H2).
- * Os containers usam o padrao singleton (start estatico, reutilizados por toda a JVM),
- * compartilhados entre as classes de teste para reduzir o tempo total.
+ * Base dos testes de integracao: sobe Postgres e RabbitMQ de verdade com Testcontainers
+ * (nada de H2). Os containers sao singleton (start estatico, reusados na JVM toda) e
+ * compartilhados entre as classes pra nao subir um por classe e demorar menos.
  */
 @SpringBootTest
 public abstract class AbstractIntegrationTest {

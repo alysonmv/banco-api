@@ -40,7 +40,7 @@ public class RabbitConfig {
         return BindingBuilder.bind(notificationsQueue).to(transfersExchange).with(routingKey);
     }
 
-    /** Mensagens serializadas em JSON (aplicado a RabbitTemplate e aos listeners pelo Boot). */
+    /** Mensagens em JSON (o Boot aplica no RabbitTemplate e nos listeners). */
     @Bean
     MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();

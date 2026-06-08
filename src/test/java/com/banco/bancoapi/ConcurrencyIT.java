@@ -21,9 +21,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Correcao sob alta concorrencia: N transferencias simultaneas entre as mesmas contas.
- * Invariante central: a soma dos saldos no fim == soma no inicio (nao se perde nem se cria
- * dinheiro) e nenhum saldo fica negativo.
+ * Sob concorrencia: varias transferencias ao mesmo tempo entre as mesmas contas.
+ * O que importa: a soma dos saldos no fim e igual a do inicio (nao some nem aparece dinheiro)
+ * e nenhum saldo fica negativo.
  */
 class ConcurrencyIT extends AbstractIntegrationTest {
 

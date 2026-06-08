@@ -3,8 +3,8 @@ package com.banco.bancoapi.domain.model;
 import java.time.Instant;
 
 /**
- * Registro de uma operacao idempotente ja executada: guarda o hash do request original
- * (para detectar replay divergente) e a resposta serializada (para devolver sem reexecutar).
+ * Operacao idempotente que ja rodou: guarda o hash do request original (pra pegar replay
+ * com payload diferente) e a resposta serializada (pra devolver sem rodar de novo).
  */
 public record IdempotencyRecord(
         String idempotencyKey,

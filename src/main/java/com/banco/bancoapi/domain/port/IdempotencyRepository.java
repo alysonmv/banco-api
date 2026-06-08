@@ -4,18 +4,18 @@ import com.banco.bancoapi.domain.model.IdempotencyRecord;
 
 import java.util.Optional;
 
-/** Port de persistencia das chaves de idempotencia (estrategia claim-first). */
+/** Persistencia das chaves de idempotencia (claim primeiro, completa depois). */
 public interface IdempotencyRepository {
 
     Optional<IdempotencyRecord> findByKey(String idempotencyKey);
 
     /**
-     * Tenta reservar (claim) a chave inserindo a linha com o hash do request.
-     * Retorna {@code true} se reservou; {@code false} se a chave ja existia (replay).
-     * A unicidade da PK serializa requests concorrentes com a mesma chave.
+     * Tenta reservar a chave inserindo a linha com o hash do request.
+     * true se reservou, false se a chave ja existia (replay). A PK unica serializa
+     * requests concorrentes com a mesma chave.
      */
     boolean tryClaim(String idempotencyKey, String requestHash);
 
-    /** Completa um claim com o resultado da transferencia (movimentacao + resposta serializada). */
+    /** Fecha o claim com o resultado da transferencia (movimentacao + resposta em JSON). */
     void complete(String idempotencyKey, Long movementId, int responseStatus, String responseBody);
 }

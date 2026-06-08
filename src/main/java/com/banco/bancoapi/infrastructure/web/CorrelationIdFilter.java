@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.util.UUID;
 
 /**
- * Gera/propaga o correlation id por requisicao. Le {@code X-Correlation-Id} (ou gera um),
- * coloca no MDC para aparecer nos logs e devolve no header da resposta.
+ * Cuida do correlation id de cada request: le o X-Correlation-Id (ou cria um), poe no MDC
+ * pra aparecer nos logs e devolve no header da resposta.
  */
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)

@@ -4,8 +4,8 @@ import java.time.Instant;
 import java.util.Objects;
 
 /**
- * Registro imutavel de uma transferencia (ledger). Uma vez criado, nao muda.
- * A consulta de movimentacoes le destes registros — o historico nao e derivado do saldo.
+ * Linha do ledger, imutavel. Depois de criada nao muda.
+ * O extrato sai daqui; nao e calculado a partir do saldo.
  */
 public final class Movement {
 
@@ -28,7 +28,7 @@ public final class Movement {
         this.createdAt = createdAt;
     }
 
-    /** Cria uma movimentacao concluida ainda sem id/timestamp (atribuidos na persistencia). */
+    /** Movimentacao concluida, sem id/timestamp ainda (vem na hora de salvar). */
     public static Movement completed(Long fromAccountId, Long toAccountId, Money amount, String idempotencyKey) {
         return new Movement(null, fromAccountId, toAccountId, amount, MovementStatus.COMPLETED, idempotencyKey, null);
     }
