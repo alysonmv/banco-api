@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: banco-api
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/banco}
+    username: ${SPRING_DATASOURCE_USERNAME:banco}
+    password: ${SPRING_DATASOURCE_PASSWORD:banco}
+    hikari:
+      maximum-pool-size: 20
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:guest}
+    password: ${SPRING_RABBITMQ_PASSWORD:guest}
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when_authorized
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: banco-api
+    description: API REST de banco digital com transferencias atomicas e concorrentes
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+# Configuracoes de negocio
+banco:
+  messaging:
+    exchange: banco.transfers
+    queue: banco.transfers.notifications
+    routing-key: transfer.completed
+
+logging:
+  pattern:
+    # Inclui o correlation id (MDC) em todas as linhas de log
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [corrId=%X{correlationId:-}] %-5level %logger{36} - %msg%n"

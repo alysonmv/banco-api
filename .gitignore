@@ -1,0 +1,20 @@
+# Build
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+
+# Claude Code (config local)
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
